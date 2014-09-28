@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>HastaScrape</display-name>
+  
+  
+
+
+
+  
+   <!-- Application class name -->
+   <context-param>
+      <param-name>org.restlet.application</param-name>
+      <param-value>
+         firstSteps.HastaScrapeApplication
+      </param-value>
+   </context-param>
+
+   <!-- Restlet adapter -->
+   <servlet>
+      <servlet-name>RestletServlet</servlet-name>
+      <servlet-class>
+         org.restlet.ext.servlet.ServerServlet
+      </servlet-class>
+      <!-- List of supported client protocols -->
+		<init-param>
+		    <param-name>org.restlet.clients</param-name>
+		    <param-value>HTTP HTTPS FILE</param-value>
+		</init-param>
+      
+   </servlet>
+
+   <!-- Catch all requests -->
+   <servlet-mapping>
+      <servlet-name>RestletServlet</servlet-name>
+      <url-pattern>/*</url-pattern>
+   </servlet-mapping>
+  
+</web-app>
