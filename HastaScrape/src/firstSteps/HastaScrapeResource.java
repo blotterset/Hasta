@@ -5,7 +5,12 @@ package firstSteps;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -225,7 +230,43 @@ public class HastaScrapeResource extends ServerResource {
 		}
 		indirizzo.setVia(viaStr);
 		indirizzo.setnCivico(nCivico);
+		ret.setIndirizzo(indirizzo);
+		
+		
+		
+		//seconda tabella contiene prezzo base e data
+		
+		
+		Element table2 = elementAnnuncio.select("table.scheda_elenco_dx").get(0);
+		//seconda riga della tabella che contiene prezzo base e data
+		Element table2_2tr = table2.select("tr").get(1);
+		//il primo td coniene la data
+		
+		//data
+		String dataAstaStr = table2_2tr.select("td").get(0).html();
+		Date dataAsta = parseDate(dataAstaStr);
+		ret.setDataAsta(dataAsta);
+		
+		//prezzo base asta
+		String prezzoBaseAsta = table2_2tr.select("td").get(1).html();
+		ret.setPrezzoBaseAsta(prezzoBaseAsta);
+		
 		System.out.println(indirizzoStrRaw + " --- " + viaStr + " --- " + nCivico);
 		return ret;
+	}
+	
+	Date parseDate(String dateString){
+		if (dateString == null || dateString.isEmpty())
+			return(Date.from(Instant.MIN));
+		// 11/11/2014 11:00:00
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date date;
+		try {
+			date = formatter.parse(dateString);
+		} catch (ParseException e) {
+			log.error(String.format("Problemi nel parsing della data %s ritorno la data minima, motivo %s", dateString, e));
+			return(Date.from(Instant.MIN));
+		}
+		return date;
 	}
 }

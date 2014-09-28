@@ -3,6 +3,7 @@ package firstSteps.beans;
 import static firstSteps.utils.Utils.trim;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 public class Annuncio {
 	String id;
@@ -17,6 +18,8 @@ public class Annuncio {
 	List<String> allegati;
 	String urlSchedaDettagliata;
 	Indirizzo indirizzo;
+	Date dataAsta;
+	String prezzoBaseAsta;
 	
 	public String getId() {
 		return id;
@@ -89,9 +92,26 @@ public class Annuncio {
 		this.urlSchedaDettagliata = trim(urlSchedaDettagliata);
 	}
 	
+	public Indirizzo getIndirizzo() {
+		return indirizzo;
+	}
+	public void setIndirizzo(Indirizzo indirizzo) {
+		this.indirizzo = indirizzo;
+	}
 	
+	public Date getDataAsta() {
+		return dataAsta;
+	}
+	public void setDataAsta(Date dataAsta) {
+		this.dataAsta = dataAsta;
+	}
 	
-	
+	public String getPrezzoBaseAsta() {
+		return prezzoBaseAsta;
+	}
+	public void setPrezzoBaseAsta(String prezzoBaseAsta) {
+		this.prezzoBaseAsta = prezzoBaseAsta;
+	}
 	@Override
 	public String toString() {
 		final int maxLen = 10;
@@ -118,8 +138,11 @@ public class Annuncio {
 				.append(allegati != null ? allegati.subList(0,
 						Math.min(allegati.size(), maxLen)) : null)
 				.append(", urlSchedaDettagliata=").append(urlSchedaDettagliata)
-				.append("]");
+				.append(", indirizzo=").append(indirizzo).append(", dataAsta=")
+				.append(dataAsta).append(", prezzoBaseAsta=")
+				.append(prezzoBaseAsta).append("]");
 		return builder.toString();
 	}
+	
 	
 }
