@@ -2,24 +2,26 @@ package firstSteps.beans;
 
 import static firstSteps.utils.Utils.trim;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 public class Annuncio {
-	String id;
-	String sito;
-	String baseUrl;
-	String procedura;
-	String tribunale;
-	String tipologia;
-	String quota;
-	Vendita vendita;
-	String descrzione;
-	List<String> allegati;
-	String urlSchedaDettagliata;
-	Indirizzo indirizzo;
-	Date dataAsta;
-	String prezzoBaseAsta;
+	private String id;
+	private String sito;
+	private String baseUrl;
+	private String procedura;
+	private String tribunale;
+	private String tipologia;
+	private String quota;
+	private Vendita vendita;
+	private String descrzione;
+	private List<String> allegati;
+	private String urlSchedaDettagliata;
+	private Indirizzo indirizzo;
+	private Date dataAsta = Date.from(Instant.EPOCH);
+	private String prezzoBaseAsta;
+	private String tipoDiVendita;
 	
 	public String getId() {
 		return id;
@@ -112,6 +114,15 @@ public class Annuncio {
 	public void setPrezzoBaseAsta(String prezzoBaseAsta) {
 		this.prezzoBaseAsta = prezzoBaseAsta;
 	}
+	
+	
+	
+	public String getTipoDiVendita() {
+		return tipoDiVendita;
+	}
+	public void setTipoDiVendita(String tipoDiVendita) {
+		this.tipoDiVendita = tipoDiVendita;
+	}
 	@Override
 	public String toString() {
 		final int maxLen = 10;
@@ -140,9 +151,12 @@ public class Annuncio {
 				.append(", urlSchedaDettagliata=").append(urlSchedaDettagliata)
 				.append(", indirizzo=").append(indirizzo).append(", dataAsta=")
 				.append(dataAsta).append(", prezzoBaseAsta=")
-				.append(prezzoBaseAsta).append("]");
+				.append(prezzoBaseAsta).append(", tipoDiVendita=")
+				.append(tipoDiVendita).append("]");
 		return builder.toString();
 	}
+	
+	
 	
 	
 }

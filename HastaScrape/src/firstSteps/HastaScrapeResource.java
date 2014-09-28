@@ -20,6 +20,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Entities;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
+import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.Get;
@@ -36,8 +37,11 @@ import firstSteps.beans.Indirizzo;
 public class HastaScrapeResource extends ServerResource {
 	
 	private static final Logger log = Logger.getLogger(HastaScrapeResource.class);
-	@Get
-    public String represent() throws ResourceException, IOException {
+	
+	
+	
+	@Get("json")
+    public Representation represent() throws ResourceException, IOException {
 		ClientResource clientResource = new ClientResource("http://www.asteannunci.it/aste-giudiziarie/elenco.php?Regione=4&T=&Provincia=MI&RangePrezzoDa=&RangePrezzoA=200000&Comune=F205&DataVendita=&CAP=&TipoProcedura=&I=&RGE=&RGE_anno=&TipoImmobile=&AE=&TIDettaglio=&AP=50&Q=&S=D3&H=1&tipologia_lotto=1&pagina=&numRisultatiPagina=649");
 		Representation rapresentation = clientResource.get();
 		InputStream pageReadInputStream = rapresentation.getStream();
@@ -51,17 +55,17 @@ public class HastaScrapeResource extends ServerResource {
 		    settings.prettyPrint(true);
 		    settings.escapeMode(Entities.EscapeMode.base);
 		    
-
+		    List<Annuncio> annunci = new ArrayList<Annuncio>();
 		
 		//FIXME configurare log4j
 		//log.info("dom letto : " + dom);
 	Elements annunciNodes = dom.select("div[id^=asta_]");
 	if (annunciNodes.size() == 0 )
 	{
-		System.out.println("Nessun annuncio trovato");
-		return "Nessun annuncio trovato";
+		log.info("Nessun annuncio trovato");
+		return new JacksonRepresentation<>(annunci);
 	}
-	List<Annuncio> annunci = new ArrayList<Annuncio>();
+	
 	Annuncio annuncio;
 	for (Element element : annunciNodes) {
 		//System.out.println(element.toString());
@@ -158,7 +162,7 @@ public class HastaScrapeResource extends ServerResource {
 	for (Annuncio a : annunci) {
 		retSb.append(a).append("\n").append("---").append("\n");
 	}
-		return retSb.toString();
+	return new JacksonRepresentation<>(annunci);
     }
 
 	private Annuncio parse(Element elementAnnuncio) {
@@ -234,30 +238,58 @@ public class HastaScrapeResource extends ServerResource {
 		
 		
 		
-		//seconda tabella contiene prezzo base e data
+		//seconda tabella contiene prezzo base e data e tipo di vendita (con incanto, senza incanto
 		
 		
 		Element table2 = elementAnnuncio.select("table.scheda_elenco_dx").get(0);
-		//seconda riga della tabella che contiene prezzo base e data
-		Element table2_2tr = table2.select("tr").get(1);
-		//il primo td coniene la data
+		//prima riga della tabella contiene tipo di vendita, con incanto senza incanto
 		
-		//data
-		String dataAstaStr = table2_2tr.select("td").get(0).html();
-		Date dataAsta = parseDate(dataAstaStr);
-		ret.setDataAsta(dataAsta);
+		trs = table2.select("tr");
+		Element table2_1tr = trs.get(0);
 		
-		//prezzo base asta
-		String prezzoBaseAsta = table2_2tr.select("td").get(1).html();
-		ret.setPrezzoBaseAsta(prezzoBaseAsta);
+		//tipo di vendita
+		Elements ths = table2_1tr.select("th");
+		String tipoDiVendita = "";
+		if (ths.size() > 0)
+		{
+			Element th = ths.get(0);
+			tipoDiVendita = th.html();
+		}
 		
+		ret.setTipoDiVendita(tipoDiVendita);
+		
+		//terza riga della tabella che contiene prezzo base e data
+		if(trs.size() > 2)
+		{ 
+			Element table2_3tr = trs.get(2);
+		
+			//il primo td coniene la data
+			tds = table2_3tr.select("td");
+			//data
+			String dataAstaStr = "";
+			if (tds.size() > 0)
+			{
+				dataAstaStr = tds.get(0).html();
+				
+			}
+			Date dataAsta = parseDate(dataAstaStr);
+			ret.setDataAsta(dataAsta);
+			//prezzo base asta
+			String prezzoBaseAsta = "";
+			if (tds.size() >=2)
+			{
+				prezzoBaseAsta = tds.get(1).html();
+			}
+		
+			ret.setPrezzoBaseAsta(prezzoBaseAsta);
+		}
 		System.out.println(indirizzoStrRaw + " --- " + viaStr + " --- " + nCivico);
 		return ret;
 	}
 	
 	Date parseDate(String dateString){
 		if (dateString == null || dateString.isEmpty())
-			return(Date.from(Instant.MIN));
+			return(Date.from(Instant.EPOCH));
 		// 11/11/2014 11:00:00
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date;
@@ -265,7 +297,7 @@ public class HastaScrapeResource extends ServerResource {
 			date = formatter.parse(dateString);
 		} catch (ParseException e) {
 			log.error(String.format("Problemi nel parsing della data %s ritorno la data minima, motivo %s", dateString, e));
-			return(Date.from(Instant.MIN));
+			return(Date.from(Instant.EPOCH));
 		}
 		return date;
 	}
