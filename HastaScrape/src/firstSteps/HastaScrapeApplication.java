@@ -5,7 +5,11 @@ package firstSteps;
 
 import org.restlet.Application;
 import org.restlet.Restlet;
+import org.restlet.resource.Directory;
+import org.restlet.routing.Redirector;
 import org.restlet.routing.Router;
+import org.restlet.routing.Template;
+import org.restlet.routing.TemplateRoute;
 
 /**
  * @author Pier
@@ -23,11 +27,13 @@ public class HastaScrapeApplication extends Application {
         
         //come collegare vari percosi : in base al percorso invoco un classe resuource che fa cose differenti
         router.attach("/rest/hastaScrapeList",          HastaScrapeResource.class);
+      
+        
        // router.attach("/rest/todos/{annuncioId}", TodoResource.class);
         
         //qui definisco un solo percorso , qualsiasi url invoca la classe hastaScrapeResouce
         // Defines only one route
-        // router.attachDefault(HastaScrapeResource.class);
+         router.attachDefault(HastaScrapeResource.class);
 
         return router;
     }

@@ -285,6 +285,7 @@ public class HastaScrapeResource extends ServerResource {
 		}
 		System.out.println(indirizzoStrRaw + " --- " + viaStr + " --- " + nCivico);
 		return ret;
+		
 	}
 	
 	Date parseDate(String dateString){

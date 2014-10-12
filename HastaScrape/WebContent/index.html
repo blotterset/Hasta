@@ -1,0 +1,36 @@
+<html ng-app="hastascrapeApp">
+<head>
+    <title>Hasta Scrape - le tue aste dove</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="Hastascrape - aste su mappa"/>
+    <meta name="keywords" content="immobili, aste immobiliari, annunci immpbiliari"/>
+    <meta name="author" content="Pierpaolo Piccoli (plab.com)"/>
+    <meta charset="UTF-8"/>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
+    <script type="text/javascript" src="js/hastascrape.js"></script>
+
+    <link rel="icon" href="favicon.ico"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css' />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="css/bootstrap-glyphicons.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="css/style.css"/>
+    
+</head>
+<body>
+<div class="container">
+
+    <div class="jumbotron">
+        <h1>Hasta scrape <span class="glyphicon glyphicon-check pull-right"></span></h1>
+        <p class="text-muted">Annunci immobiliari su mappa</p>
+    </div>
+
+    <div ng-view></div>
+
+
+</div>
+</body>
+</html>
