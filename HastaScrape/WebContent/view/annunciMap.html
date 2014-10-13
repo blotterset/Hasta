@@ -19,11 +19,12 @@
 </h2>
 
 <table class="table table-bordered">
-    <tr ng-repeat="annuncio in annunci" >
-        <td>
-        	aaa{{annuncio.indirizzo}}bbb
-            </td>
-    </tr>
+	<google-map latitude="45.500919" longitude="9.138859" fitToMarkers = "true" >
+		 <google-map-marker  ng-repeat="annuncio in annunci"   
+		 	latitude="{{annuncio.mapMarker.latitude}}" longitude="{{annuncio.mapMarker.longitude}}"
+      		title="{{annuncio.mapMarker.comment}}">
+      	</google-map-marker>
+	</google-map>
 </table>
 
 <hr/>
