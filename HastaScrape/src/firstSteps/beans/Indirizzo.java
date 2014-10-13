@@ -4,7 +4,7 @@ import static firstSteps.utils.Utils.trim;
 
 public class Indirizzo {
 	String via;
-	String nCivico;
+	String numeroCivico;
 	String citta;
 	public String getVia() {
 		return via;
@@ -15,11 +15,12 @@ public class Indirizzo {
 			this.via = "piazza Duomo 1";
 		}
 	}
-	public String getnCivico() {
-		return nCivico;
+	
+	public String getNumeroCivico() {
+		return numeroCivico;
 	}
-	public void setnCivico(String nCivico) {
-		this.nCivico = trim(nCivico);
+	public void setNumeroCivico(String numeroCivico) {
+		this.numeroCivico = numeroCivico;
 	}
 	public String getCitta() {
 		return citta;
@@ -27,5 +28,6 @@ public class Indirizzo {
 	public void setCitta(String citta) {
 		this.citta = trim(citta);
 	}
+	
 	
 }

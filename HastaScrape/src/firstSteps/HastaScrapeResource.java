@@ -29,6 +29,7 @@ import org.restlet.resource.ServerResource;
 
 import firstSteps.beans.Annuncio;
 import firstSteps.beans.Indirizzo;
+import firstSteps.interfaces.MapManager;
 
 /**
  * @author Pier
@@ -162,6 +163,15 @@ public class HastaScrapeResource extends ServerResource {
 	for (Annuncio a : annunci) {
 		retSb.append(a).append("\n").append("---").append("\n");
 	}
+	//valorizzo i marker della mappa
+	
+	MapManager mapManager = new GoogleMapManager();
+		mapManager.addMapMarkers(annunci);
+	
+	
+	
+	
+	
 	return new JacksonRepresentation<>(annunci);
     }
 
@@ -233,7 +243,7 @@ public class HastaScrapeResource extends ServerResource {
 			nCivico = indirizzoStrRaw.substring(indirizzoStrRaw.lastIndexOf("nr.")+3);
 		}
 		indirizzo.setVia(viaStr);
-		indirizzo.setnCivico(nCivico);
+		indirizzo.setNumeroCivico(nCivico);
 		ret.setIndirizzo(indirizzo);
 		
 		

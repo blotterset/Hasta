@@ -8,7 +8,15 @@
     <meta name="keywords" content="immobili, aste immobiliari, annunci immpbiliari"/>
     <meta name="author" content="Pierpaolo Piccoli (plab.com)"/>
     <meta charset="UTF-8"/>
-
+   
+    <!-- Polymer -->
+ 	<!-- 1. Load platform.js for polyfill support. -->
+    <script src="bower_components/platform/platform.js"></script>
+    <!-- 2. Use an HTML Import to bring in the element. -->
+    <link rel="import"
+          href="bower_components/google-map/google-map.html" />
+     
+          
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
     <script type="text/javascript" src="js/hastascrape.js"></script>
@@ -19,6 +27,7 @@
     <link href="css/bootstrap-glyphicons.css" rel="stylesheet" media="screen" />
     <link rel="stylesheet" href="css/style.css"/>
     
+   
 </head>
 <body>
 <div class="container">
@@ -27,6 +36,13 @@
         <h1>Hasta scrape <span class="glyphicon glyphicon-check pull-right"></span></h1>
         <p class="text-muted">Annunci immobiliari su mappa</p>
     </div>
+<style>
+  google-map {
+    display: block;
+    height: 800px;
+  }
+</style>
+
 
     <div ng-view></div>
 

@@ -6,6 +6,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import firstSteps.interfaces.MapMarker;
 public class Annuncio {
 	private String id;
 	private String sito;
@@ -22,6 +24,7 @@ public class Annuncio {
 	private Date dataAsta = Date.from(Instant.EPOCH);
 	private String prezzoBaseAsta;
 	private String tipoDiVendita;
+	private MapMarker mapMarker;
 	
 	public String getId() {
 		return id;
@@ -123,6 +126,17 @@ public class Annuncio {
 	public void setTipoDiVendita(String tipoDiVendita) {
 		this.tipoDiVendita = tipoDiVendita;
 	}
+	
+	public void setMapMarker(MapMarker mapMarker) {
+		this.mapMarker = mapMarker;
+		
+	}
+	
+	
+	
+	public MapMarker getMapMarker() {
+		return mapMarker;
+	}
 	@Override
 	public String toString() {
 		final int maxLen = 10;
@@ -155,6 +169,7 @@ public class Annuncio {
 				.append(tipoDiVendita).append("]");
 		return builder.toString();
 	}
+	
 	
 	
 	

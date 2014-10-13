@@ -23,6 +23,13 @@
 		 <google-map-marker  ng-repeat="annuncio in annunci"   
 		 	latitude="{{annuncio.mapMarker.latitude}}" longitude="{{annuncio.mapMarker.longitude}}"
       		title="{{annuncio.mapMarker.comment}}">
+      		<!-- info annuncio -->
+      		<div>
+      			<a href="{{annuncio.urlSchedaDettagliata}}"> </a>
+      			<span>{{annuncio.indirizzo.via}} {{annuncio.indirizzo.numeroCivico}}</span>
+      			<br />
+      			<span>{{annuncio.descrizione}}</span>
+      		</div>
       	</google-map-marker>
 	</google-map>
 </table>
