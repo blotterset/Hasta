@@ -11,8 +11,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import firstSteps.beans.Annuncio;
+import firstSteps.scrapers.factories.AsteAnnunciScraperFactory;
+import firstSteps.scrapers.factories.ScraperFactory;
 
-/** Interfaccia per gli scraper dei vari siti di aste
+/** Claasse astratta di base per gli scraper dei vari siti di aste
  * @author Pier
  *
  */
@@ -32,21 +34,22 @@ public abstract class  Scraper {
 	public  static List<Annuncio> getAnnunciFrom(String url) throws IOException{
 		
 		/*template pattern
-		 * alcuni passi dell'algorimo sono dichiarati astratti e verranno implementati dalle sottoclassi
+		 * alcuni passi dell'algoritmo sono dichiarati astratti e verranno implementati dalle sottoclassi
 		 * */
 		//ricavo lo scraper in base alla url
-		Scraper aScraper = getInstance(url);
+		ScraperFactory scraperFactory = getScraperFactory(url);
+		Scraper aScraper = scraperFactory.getInstance(url);
 		//estraggo gli annunci dalla pagina
 		List<Annuncio> annunci = aScraper.scrape();
 		return annunci;
 	}
 	
 	
-	private  static Scraper getInstance(String url){
-		Scraper aScraper = null;
+	private  static ScraperFactory getScraperFactory(String url){
+		ScraperFactory aScraperFactory = null;
 		if (url.contains("asteannunci.it"))
 		{	
-			aScraper = new AsteAnnunciScraper();
+			aScraperFactory = new AsteAnnunciScraperFactory();
 		}
 		else
 		{
@@ -55,8 +58,8 @@ public abstract class  Scraper {
 					+ "uno scraper per un sito non supportato. "
 					+ "Il sito che si vuole creare ha url : %s", url));
 		}
-		aScraper.setUrlToParse(url);
-		return aScraper;
+		
+		return aScraperFactory;
 	}
 	
 	
@@ -94,7 +97,7 @@ public abstract class  Scraper {
 	}
 
 
-	private void setUrlToParse(String urlToParse) {
+	public void setUrlToParse(String urlToParse) {
 		this.urlToParse = urlToParse;
 	}
 	

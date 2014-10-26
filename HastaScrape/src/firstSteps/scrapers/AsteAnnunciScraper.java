@@ -36,12 +36,14 @@ public class AsteAnnunciScraper extends Scraper {
 	
 	
 	//costruttore
-	protected AsteAnnunciScraper(){
+	private AsteAnnunciScraper(){
 		nomeSito = "asteAnnunci.it";
 		dateFormat = "dd/MM/yyyy HH:mm:ss";
 		
 	}
-	
+	public static Scraper getInstance(){
+		return new AsteAnnunciScraper();
+	}
 	
 	@Override
 	public List<Annuncio> scrape() throws IOException {
