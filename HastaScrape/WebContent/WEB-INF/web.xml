@@ -12,7 +12,7 @@
    <context-param>
       <param-name>org.restlet.application</param-name>
       <param-value>
-         firstSteps.HastaScrapeApplication
+         it.pierpalab.hastascrape.HastaScrapeApplication
       </param-value>
    </context-param>
 

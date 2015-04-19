@@ -1,10 +1,11 @@
 package it.pierpalab.hastascrape;
 
-import it.pierpalab.hastascrape.beans.Annuncio;
+
 import it.pierpalab.hastascrape.beans.GoogleMapMarker;
-import it.pierpalab.hastascrape.beans.Indirizzo;
 import it.pierpalab.hastascrape.interfaces.MapManager;
 import it.pierpalab.hastascrape.interfaces.MapMarker;
+import it.pierpalab.hastascrape.scrapers.beans.Annuncio;
+import it.pierpalab.hastascrape.scrapers.beans.Indirizzo;
 
 import java.util.ArrayList;
 import java.util.List;

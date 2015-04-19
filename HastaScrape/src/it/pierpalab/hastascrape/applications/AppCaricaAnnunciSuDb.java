@@ -1,16 +1,16 @@
 package it.pierpalab.hastascrape.applications;
 
-import it.pierpalab.hastascrape.beans.Annuncio;
 import it.pierpalab.hastascrape.dao.DAO;
 import it.pierpalab.hastascrape.dao.factories.DAOFactory;
-import it.pierpalab.hastascrape.scrapers.Scraper;
+import it.pierpalab.hastascrape.scrapers.beans.Annuncio;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import javax.inject.Inject;
+
 import org.restlet.engine.Engine;
 import org.restlet.ext.jackson.JacksonConverter;
 import org.restlet.ext.jackson.JacksonRepresentation;
@@ -21,8 +21,8 @@ import org.restlet.resource.ServerResource;
 
 public class AppCaricaAnnunciSuDb extends ServerResource {
 
-	private static Logger log = LogManager
-			.getLogger(AppCaricaAnnunciSuDb.class);
+	@Inject
+	private Logger log;
 
 	@Get("json")
 	public Representation represent() throws ResourceException, IOException {

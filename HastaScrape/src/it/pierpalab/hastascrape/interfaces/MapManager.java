@@ -1,6 +1,8 @@
 package it.pierpalab.hastascrape.interfaces;
 
-import it.pierpalab.hastascrape.beans.Annuncio;
+
+
+import it.pierpalab.hastascrape.scrapers.beans.Annuncio;
 
 import java.util.List;
 

@@ -30,7 +30,7 @@ public class HastaScrapeApplication extends Application {
         router.attach("/rest/hastaScrapeCaricaAnnunciSuDb",          AppCaricaAnnunciSuDb.class);
        // router.attach("/rest/todos/{annuncioId}", TodoResource.class);
         //qui definisco un solo percorso , qualsiasi url invoca la classe hastaScrapeResouce
-         //router.attachDefault(AppMostraAnnunci.class);
+         router.attachDefault(AppMostraAnnunci.class);
          
        //imposto il converter da usare
      	Engine.getInstance().getRegisteredConverters().add(new JacksonConverter());
